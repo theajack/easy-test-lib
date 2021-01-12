@@ -24,8 +24,8 @@
         // }
     },
     "include": [
-        "./src/*"
-, "src/util.ts", "src/default-plugin/default-plugin.ts"    ],
+        "./src/**/*.ts"
+    ],
     "exclude": [
         "./node_modules"
     ]
