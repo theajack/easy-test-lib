@@ -1,6 +1,6 @@
 
 
-import {ITestConfigItem, asyncPlugin} from '../../src';
+import {ITestConfigItem} from '../../src';
 
 async function timeout (time: number) {
     return new window.Promise(resolve => {
@@ -10,9 +10,9 @@ async function timeout (time: number) {
     });
 }
 
-let asyncCase: ITestConfigItem = {
+const asyncCase: ITestConfigItem = {
     args: {aa: 22},
-    plugin: asyncPlugin,
+    plugin: 'asyncPlugin',
     name: '测试async',
     async test (args: any) {
         await timeout(2000);

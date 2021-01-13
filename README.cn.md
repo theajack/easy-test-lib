@@ -1,4 +1,4 @@
-## 🚀 A simple and small js test library
+## 🚀 一个简单小巧的js测试库
 
 <p>
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/github/stars/theajack/easy-test-lib.svg?style=social" alt="star"></a>
@@ -15,35 +15,35 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.md) | [Feedback bug/missing](https://github.com/theajack/ easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
+**[English](https://github.com/theajack/easy-test-lib/blob/master/README.en.md) | [反馈错误/缺漏](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 
-### 1. Features
+### 1. 特性
 
-1. Typescript writing
-2. Small size and easy to use
-3. Multi-terminal support
-4. Support asynchronous
-5. Customizable plugins
-6. Configuration file + command line operation
-7. Global installation available
+1. typescript 编写
+2. 体积小巧，简单易用
+3. 多端支持
+4. 支持异步
+5. 可自定义插件
+6. 配置文件 + 命令行运行
+7. 全局安装可用
 
-### 2. Installation
+### 2. 安装
 
-#### 2.1 api call
+#### 2.1 api调用
 
 ```
 npm i easy-test-lib -D
 ```
 
 ```js
-import {startTest} from'easy-test-lib';
+import {startTest} from 'easy-test-lib';
 startTest(config);
 ```
 
-#### 2.2 Configuration file call
+#### 2.2 配置文件调用
 
-package.json added
+package.json 增加
 
 ```
     ...
@@ -53,58 +53,58 @@ package.json added
     ...
 ```
 
-The configuration file defaults to the tc.test.js file in the root directory, which can be configured freely
+配置文件默认是根目录的 tc.test.js 文件，可以自由配置
 
-Root directory execution
+根目录执行
 
 ```
 npm run test
 ```
 
-#### 2.3 Global installation and use
+#### 2.3 全局安装使用
 
 ```
 npm i easy-test-lib -g
 ```
 
-The configuration file is consistent with the rules in 2.2
+配置文件与2.2中规则一致
 
-Run the following command line in the project directory
+在项目目录中运行以下命令行即可
 
 ```
 etest <config file>
 ```
 
-### 3 Configuration
+### 3 配置
 
 ```js
-import {startTest} from'easy-test-lib';
+import {startTest} from 'easy-test-lib';
 
 function add (x, y) {
     return x + y;
 }
 
 startTest({
-    args: {// optional parameters
-        // Used to pass in some public apis, which will be passed into test cases
+    args: { // 可选参数
+        // 用于传入一些公用的api，会被传入测试用例中
     },
-    cases: [// Test case configuration, it is recommended to split files
+    cases: [ // 测试用例配置，建议拆分文件
         {
-            name:'Test add function', // optional
-            args: {// optional
-                // The api of the current test case
+            name: '测试add函数', // 可选
+            args: { // 可选
+                // 当前测试用例的api
             },
-            test (args, localArgs) {
-                // args corresponds to the public api, localArgs corresponds to the current test case api
-                // this refers to the current test case
+            test (args, localArgs) { 
+                // args对应公共api，localArgs对应当前测试用例api
+                // this指代当前测试用例
                 return add(1 + 1);
             },
             expect: 2,
-            // plugin: ITestPlugin, // Plug-in used by the current test case optional
+            // plugin: ITestPlugin, // 当前测试用例使用的插件 可选
         }
     ],
-    onTestComplete (result) {// All tests are completed callback optional
-        // result data structure is as follows
+    onTestComplete (result) { // 测试全部完成回调 可选
+        // result 数据结构如下
         /*
             passed: boolean;
             results: [
@@ -120,8 +120,8 @@ startTest({
             time: number;
         */
     },
-    onTestSingle (result) {// Single test case completion callback optional
-        // result data structure is as follows
+    onTestSingle (result) { // 单个测试用例完成回调 可选
+        // result 数据结构如下
         /*
             passed: boolean;
             result: any;
@@ -131,32 +131,32 @@ startTest({
             time: number;
         */
     },
-    // plugin: ITestPlugin, // global plugin optional
+    // plugin: ITestPlugin, // 全局插件 可选
 });
 ```
 
-### 4 Plugins
+### 4 插件
 
-#### 4.1 Built-in plugins
+#### 4.1 内置插件
 
-easy-test-lib has built-in default plugin (defaultPlugin) and asynchronous plugin (asyncPlugin)
+easy-test-lib 内置了 默认插件（defaultPlugin）和 异步插件（asyncPlugin）
 
-The default plugin is used by default. If you need to use asynchronous plugins, you can directly use the string to import
+默认使用默认插件，如需使用异步插件可以直接使用字符串引入
 
 ```js
-plugin:'asyncPlugin'
+plugin: 'asyncPlugin'
 ```
 
-Or import from easy-test-lib
+或从 easy-test-lib 中引入
 
 ```js
-import {asyncPlugin} from'easy-test-lib';
+import {asyncPlugin} from 'easy-test-lib';
 
 ...
 plugin: asyncPlugin
 ```
 
-The following is a test case using asynchronous plugins
+以下是一个使用异步插件的测试用例
 
 ```js
 function timeout (time) {
@@ -169,8 +169,8 @@ function timeout (time) {
 
 const asyncCase = {
     args: {aa: 22},
-    plugin:'asyncPlugin',
-    name:'Test async',
+    plugin: 'asyncPlugin',
+    name: '测试async',
     async test (args: any) {
         await timeout(2000);
         console.log(args, this.args);
@@ -186,29 +186,29 @@ const asyncCase = {
 export default asyncCase;
 ```
 
-Run test cases
+运行测试用例
 
 ```js
-import {startTest} from'easy-test-lib';
-import testAsync from'./test-async';
+import {startTest} from 'easy-test-lib';
+import testAsync from './test-async';
 
 startTest({
     cases: [
         testAsync
     ],
     onTestComplete (result) {
-        console.log(`Total time (${result.time}) ms; result: ${result.passed?'Passed':'Failed'}`);
+        console.log(`总耗时（${result.time}）ms； 结果：${result.passed ? '通过' : '失败'}`);
         console.log(result);
     },
     onTestSingle (result) {
-        console.log(`${result.index}: Time-consuming (${result.time}) ms; Result: ${result.passed?'Passed':'Failed'}`);
+        console.log(`${result.index}: 耗时（${result.time}）ms； 结果：${result.passed ? '通过' : '失败'}`);
     }
 });
 ```
 
-#### 4.2 Custom plugin
+#### 4.2 自定义插件
 
-easy-test-lib supports custom plugins, which are handed over to the developer to customize the test calculation process. A simple custom plugin template is as follows
+easy-test-lib 支持自定义插件，交给开发者定制测试计算过程，一个简单的自定义插件模板如下
 
 
 ```js
@@ -232,30 +232,30 @@ export default plugin;
 
 #### 5.1 startTest
 
-See above 3
+参见 上文 3
 
 #### 5.2 isValueEqual
 
-Determine whether two objects are equal, support reference types
+判断两个对象是否相等，支持引用类型
 
-The reference type will traverse whether all the attribute values are equal
+引用类型会遍历其中的所有属性值是否相等
 
 ```js
-import {isValueEqual} from'easy-test-lib';
+import {isValueEqual} from 'easy-test-lib';
 console.log(isValueEqual(1, 1));
 ```
 
 #### 5.3 defaultPlugin
 
-Default plugin
+默认的插件
 
 #### 5.4 defaultPlugin
 
-Support asynchronous plugins
+支持异步的插件
 
-#### 5.5 ts interface
+#### 5.5 ts 接口
 
-  1. ITestConfigItem
-  2. ITestPlugin
-  3. IStartTest
-  4. IIsValueEqual
+ 1. ITestConfigItem
+ 2. ITestPlugin
+ 3. IStartTest
+ 4. IIsValueEqual

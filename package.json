@@ -1,11 +1,12 @@
 {
-    "name": "ts-demo",
+    "name": "easy-test-lib",
     "version": "0.0.1",
-    "description": "idcard",
+    "description": "A simple and easy-to-use testing lib",
     "scripts": {
         "dev": "webpack-dev-server --open --config webpack-config/dev.js",
         "build": "webpack --config webpack-config/build.js",
-        "lint": "eslint src --ext js"
+        "lint": "eslint src --ext js",
+        "publish": "npm publish npm"
     },
     "author": "theajack",
     "repository": {
@@ -13,7 +14,8 @@
         "url": "https://github.com/theajack/ebuild-cli"
     },
     "keywords": [
-        "ebuild-cli"
+        "测试库",
+        "uint-test"
     ],
     "license": "MIT",
     "devDependencies": {
@@ -28,6 +30,7 @@
         "babel-eslint": "^10.0.3",
         "babel-loader": "^8.0.6",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "copy-webpack-plugin": "^6.2.1",
         "eslint": "^6.8.0",
         "eslint-config-standard": "^14.1.0",
         "eslint-loader": "^3.0.2",
@@ -36,6 +39,7 @@
         "eslint-plugin-promise": "^4.2.1",
         "husky": "^3.0.9",
         "lint-staged": "^9.4.2",
+        "run-node-webpack-plugin": "^1.3.0",
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.4",
         "webpack": "^4.41.2",

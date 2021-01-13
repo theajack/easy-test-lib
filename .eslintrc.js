@@ -5,7 +5,8 @@ module.exports = {
     "window": true,
     "console": true,
     "module": true,
-    "require": true 
+    "require": true,
+    "Promise": true,
   },
   "parserOptions": {
     "sourceType": "module" // ts 中使用 es 模块
@@ -49,6 +50,10 @@ module.exports = {
     "semi-spacing": "error",
     "comma-spacing": "error",
     "key-spacing": "error",
-    "no-undef": "error"
+    "no-undef": "error",
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }]
   }
 }

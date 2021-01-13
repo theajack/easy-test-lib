@@ -1,35 +1,34 @@
 import {
     IOnTestSingleOption,
-    IStartTest
+    IStartTest,
+    ITestPlugin,
+    TTestPlugin,
+    ITestConfigItem,
 } from './type';
 
 import defaultTestPlugin from './default-plugin';
 import asyncTestPlugin from './async-plugin';
-import {countTime} from './util';
+import {countTime, isValueEqual} from './util';
 import createTestProcess from './test-process';
 
-
 export const startTest:IStartTest = ({
-    config,
+    cases,
     args,
     onTestSingle,
     onTestComplete,
     plugin,
 }) => {
-    let onTestProcess = createTestProcess(onTestSingle, onTestComplete);
-    let length = config.length;
+    const onTestProcess = createTestProcess(onTestSingle, onTestComplete);
+    const length = cases.length;
     let testedNum = 0;
-    config.forEach(async (item, index) => {
-        let startTime = new Date().getTime();
-        if (!item.plugin) {
-            item.plugin = plugin || defaultTestPlugin;
-        }
-        let result = item.plugin(item, args);
-        if (result instanceof window.Promise) {
+    cases.forEach(async (item, index) => {
+        const startTime = new Date().getTime();
+        let result = pickPlugin(item, plugin)(item, args);
+        if (result instanceof Promise) {
             result = await result;
         }
         testedNum ++;
-        let singleOption: IOnTestSingleOption = {
+        const singleOption: IOnTestSingleOption = {
             ...result,
             index,
             time: countTime(startTime),
@@ -39,12 +38,29 @@ export const startTest:IStartTest = ({
     });
 };
 
+function pickPlugin (item: ITestConfigItem, plugin?: TTestPlugin): ITestPlugin {
+    if (item.plugin) {
+        if (typeof item.plugin === 'string') {
+            return checkPluginByString(item.plugin);
+        }
+        return item.plugin as ITestPlugin;
+    }
+    if (typeof plugin === 'string') {
+        return checkPluginByString(plugin);
+    }
+    return defaultTestPlugin;
+}
+
+function checkPluginByString (plugin: 'asyncPlugin' | 'defaultPlugin'): ITestPlugin {
+    return plugin === 'asyncPlugin' ? asyncTestPlugin : defaultTestPlugin;
+}
+
 export {
     isValueEqual
 } from './util';
 
-export let defaultPlugin = defaultTestPlugin;
-export let asyncPlugin = asyncTestPlugin;
+export const defaultPlugin = defaultTestPlugin;
+export const asyncPlugin = asyncTestPlugin;
 
 export {
     ITestConfigItem,
@@ -52,3 +68,10 @@ export {
     IStartTest,
     IIsValueEqual,
 } from './type';
+
+export default {
+    startTest,
+    isValueEqual,
+    defaultPlugin,
+    asyncPlugin
+};

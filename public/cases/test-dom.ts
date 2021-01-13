@@ -1,10 +1,10 @@
 
 import {ITestConfigItem} from '../../src';
 
-let config: ITestConfigItem = {
+const config: ITestConfigItem = {
     name: '测试add',
     test () {
-        let app = window.document.getElementById('app') as HTMLElement;
+        const app = window.document.getElementById('app') as HTMLElement;
         app.innerHTML = '<span>你好</span>';
         return app.innerText;
     },

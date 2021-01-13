@@ -1,6 +1,6 @@
 import {Json, TExpectObject, IIsValueEqual} from './type';
 
-export let isValueEqual: IIsValueEqual = (v1, v2) => {
+export const isValueEqual: IIsValueEqual = (v1, v2) => {
     return (typeof v1 !== typeof v2) ?
         false :
         ((typeof v1 === 'object') ? objectEqual(v1, v2) : (v1 === v2));
@@ -19,7 +19,7 @@ function objectEqualBase (result: TExpectObject, expect: TExpectObject): boolean
             };
         }
     } else {
-        for (let key in result) {
+        for (const key in result) {
             if (!objectEqualBaseSingle(result[key], (expect as Json)[key])) {
                 return false;
             };

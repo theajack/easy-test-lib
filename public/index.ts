@@ -1,17 +1,19 @@
 
 
 import {startTest} from '../src/index';
+// import {startTest} from '../npm/easy-test-lib.min.js';
 import testAdd from './cases/test-add';
 import testDefault from './cases/test-default';
 import testAsync from './cases/test-async';
 import testDom from './cases/test-dom';
 
-
+console.log(startTest);
+debugger;
 startTest({
     args: {
         aa: '11'
     },
-    config: [
+    cases: [
         testDefault,
         testAdd,
         testAsync,

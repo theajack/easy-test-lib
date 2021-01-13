@@ -4,10 +4,10 @@ import {
 } from '../type';
 import {isValueEqual} from '../util';
 
-let plugin: ITestPlugin = ({
+const plugin: ITestPlugin = ({
     test, expect, args
 }, argsConfig) => {
-    let result = test.call({
+    const result = test.call({
         test, expect, args
     }, argsConfig, args);
     return {

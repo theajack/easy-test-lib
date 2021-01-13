@@ -1,0 +1,28 @@
+{
+    "name": "easy-test-lib",
+    "version": "0.0.1",
+    "description": "A simple and easy-to-use testing lib",
+    "main": "easy-test-lib.min.js",
+    "bin": {
+        "etest": "bin/easy-test.js"
+    },
+    "scripts": {},
+    "unpkg": "easy-test-lib.min.js",
+    "jsdelivr": "easy-test-lib.min.js",
+    "typings": "easy-test-lib.min.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/theajack/easy-test-lib.git"
+    },
+    "keywords": [
+        "测试库",
+        "uint-test"
+    ],
+    "author": "theajack",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/theajack/easy-test-lib/issues"
+    },
+    "homepage": "https://theajack.gitee.io/easy-test-lib/",
+    "dependencies": {}
+}

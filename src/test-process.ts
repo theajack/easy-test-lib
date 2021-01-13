@@ -6,9 +6,9 @@ import {
 import {countTime} from './util';
 
 export default function createTestProcess (onTestSingle?: IOnTestSingle, onTestComplete?: IOnTestComplete) {
-    let results: IOnTestSingleOption[] = [];
+    const results: IOnTestSingleOption[] = [];
     let passed = true;
-    let startTime = new Date().getTime();
+    const startTime = new Date().getTime();
 
     return (option: IOnTestSingleOption, isLastOne:boolean = false) => {
         if (onTestSingle) {onTestSingle(option);}

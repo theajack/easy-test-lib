@@ -1,6 +1,6 @@
 import {ITestConfigItem} from '../../src';
 
-let defaultCase: ITestConfigItem = {
+const defaultCase: ITestConfigItem = {
     args: {aa: 22},
     name: '测试default',
     test (args: any) {
