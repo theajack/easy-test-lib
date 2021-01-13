@@ -9,7 +9,7 @@ module.exports = () => {
         output: {
             path: path.resolve('./', 'npm'),
             filename: 'easy-test-lib.min.js',
-            library: 'tcTest',
+            library: 'ETest',
             libraryTarget: 'umd',
             libraryExport: 'default',
             globalObject: 'this',

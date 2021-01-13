@@ -37,7 +37,7 @@ npm i easy-test-lib -D
 ```
 
 ```js
-import {startTest} from 'easy-test-lib';
+const {startTest} = require('easy-test-lib');
 startTest(config);
 ```
 
@@ -53,7 +53,7 @@ package.json 增加
     ...
 ```
 
-配置文件默认是根目录的 tc.test.js 文件，可以自由配置
+配置文件默认是根目录的 `easy.test.js` 文件，可以自由配置
 
 根目录执行
 
@@ -75,10 +75,21 @@ npm i easy-test-lib -g
 etest <config file>
 ```
 
+#### 2.4 CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/easy-test-lib/easy-test-lib.min.js"></script>
+<script>
+    ETest.startTest({
+        // ...
+    })
+</script>
+```
+
 ### 3 配置
 
 ```js
-import {startTest} from 'easy-test-lib';
+const {startTest} = require('easy-test-lib');
 
 function add (x, y) {
     return x + y;
@@ -97,7 +108,7 @@ startTest({
             test (args, localArgs) { 
                 // args对应公共api，localArgs对应当前测试用例api
                 // this指代当前测试用例
-                return add(1 + 1);
+                return add(1, 1);
             },
             expect: 2,
             // plugin: ITestPlugin, // 当前测试用例使用的插件 可选
@@ -150,7 +161,7 @@ plugin: 'asyncPlugin'
 或从 easy-test-lib 中引入
 
 ```js
-import {asyncPlugin} from 'easy-test-lib';
+const {asyncPlugin} = require('easy-test-lib');
 
 ...
 plugin: asyncPlugin
@@ -183,14 +194,14 @@ const asyncCase = {
     ]
 };
 
-export default asyncCase;
+module.exports = asyncCase;
 ```
 
 运行测试用例
 
 ```js
-import {startTest} from 'easy-test-lib';
-import testAsync from './test-async';
+const {startTest} = require('easy-test-lib');
+const testAsync = require('./test-async');
 
 startTest({
     cases: [
@@ -241,7 +252,7 @@ export default plugin;
 引用类型会遍历其中的所有属性值是否相等
 
 ```js
-import {isValueEqual} from 'easy-test-lib';
+const {isValueEqual} = require('easy-test-lib');
 console.log(isValueEqual(1, 1));
 ```
 

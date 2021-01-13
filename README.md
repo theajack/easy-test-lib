@@ -15,7 +15,7 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Feedback bug/missing](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
+**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 
 ### 1. Features
@@ -37,7 +37,7 @@ npm i easy-test-lib -D
 ```
 
 ```js
-import {startTest} from'easy-test-lib';
+const {startTest} = require('easy-test-lib');
 startTest(config);
 ```
 
@@ -53,7 +53,7 @@ package.json added
     ...
 ```
 
-The configuration file defaults to the tc.test.js file in the root directory, which can be configured freely
+The configuration file defaults to the `easy.test.js` file in the root directory, which can be configured freely
 
 Root directory execution
 
@@ -75,10 +75,21 @@ Run the following command line in the project directory
 etest <config file>
 ```
 
+#### 2.4 CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/easy-test-lib/easy-test-lib.min.js"></script>
+<script>
+    ETest.startTest({
+        // ...
+    })
+</script>
+```
+
 ### 3 Configuration
 
 ```js
-import {startTest} from'easy-test-lib';
+const {startTest} = require('easy-test-lib');
 
 function add (x, y) {
     return x + y;
@@ -97,7 +108,7 @@ startTest({
             test (args, localArgs) {
                 // args corresponds to the public api, localArgs corresponds to the current test case api
                 // this refers to the current test case
-                return add(1 + 1);
+                return add(1, 1);
             },
             expect: 2,
             // plugin: ITestPlugin, // Plug-in used by the current test case optional
@@ -150,7 +161,7 @@ plugin:'asyncPlugin'
 Or import from easy-test-lib
 
 ```js
-import {asyncPlugin} from'easy-test-lib';
+const {asyncPlugin} = require('easy-test-lib');
 
 ...
 plugin: asyncPlugin
@@ -183,14 +194,14 @@ const asyncCase = {
     ]
 };
 
-export default asyncCase;
+module.exports = asyncCase;
 ```
 
 Run test cases
 
 ```js
-import {startTest} from'easy-test-lib';
-import testAsync from'./test-async';
+const {startTest} = require('easy-test-lib');
+const testAsync = require('./test-async');
 
 startTest({
     cases: [
@@ -241,7 +252,7 @@ Determine whether two objects are equal, support reference types
 The reference type will traverse whether all the attribute values are equal
 
 ```js
-import {isValueEqual} from'easy-test-lib';
+const {isValueEqual} = require('easy-test-lib');
 console.log(isValueEqual(1, 1));
 ```
 
