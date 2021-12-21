@@ -15,7 +15,7 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[English](https://github.com/theajack/easy-test-lib/blob/master/README.md) | [反馈错误/缺漏](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
+**[English](https://github.com/theajack/easy-test-lib/blob/master/README.md) | [在线使用](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib) | [反馈错误/缺漏](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 
 ### 1. 特性
@@ -105,8 +105,8 @@ startTest({
             args: { // 可选
                 // 当前测试用例的api
             },
-            test (args, localArgs) { 
-                // args对应公共api，localArgs对应当前测试用例api
+            test (mergedArgs) { 
+                // mergedArg 为公共arg和用例arg的合并，除此之外mergedArg 中有 $global 和$local两个属性
                 // this指代当前测试用例
                 return add(1, 1);
             },
@@ -223,9 +223,7 @@ easy-test-lib 支持自定义插件，交给开发者定制测试计算过程，
 
 
 ```js
-const plugin: ITestPlugin = ({
-    name, test, expect, args
-}, argsConfig) => {
+const plugin: ITestPlugin = (item, mergedArgs) => {
     
     // do something ...
 
@@ -260,7 +258,7 @@ console.log(isValueEqual(1, 1));
 
 默认的插件
 
-#### 5.4 defaultPlugin
+#### 5.4 asyncPlugin
 
 支持异步的插件
 
@@ -270,3 +268,4 @@ console.log(isValueEqual(1, 1));
  2. ITestPlugin
  3. IStartTest
  4. IIsValueEqual
+ 5. IMergedArgs

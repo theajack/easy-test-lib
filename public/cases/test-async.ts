@@ -11,12 +11,10 @@ async function timeout (time: number) {
 }
 
 const asyncCase: ITestConfigItem = {
-    args: {aa: 22},
     plugin: 'asyncPlugin',
     name: '测试async',
-    async test (args: any) {
-        await timeout(2000);
-        console.log(args, this.args);
+    async test () {
+        await timeout(1000);
         return [
             11
         ];

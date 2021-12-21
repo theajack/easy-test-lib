@@ -5,6 +5,7 @@ export {
     ITestPlugin,
     IStartTest,
     IIsValueEqual,
+    IMergedArgs,
 } from './type';
 
 export const defaultPlugin: ITestPlugin;

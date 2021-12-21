@@ -4,11 +4,12 @@ import {
     ITestPlugin,
     TTestPlugin,
     ITestConfigItem,
+    ITestPluginConfigItem,
 } from './type';
 
 import defaultTestPlugin from './default-plugin';
 import asyncTestPlugin from './async-plugin';
-import {countTime, isValueEqual} from './util';
+import {countTime, isValueEqual, mergeArgs} from './util';
 import createTestProcess from './test-process';
 
 export const startTest:IStartTest = ({
@@ -22,9 +23,18 @@ export const startTest:IStartTest = ({
     const length = cases.length;
     let testedNum = 0;
     cases.forEach(async (item, index) => {
+        const mergedArgs = mergeArgs(args, item.args);
+        if (typeof item.test !== 'function') {
+            item.test = () => item.test; // 支持test传入非函数
+        } else {
+            item.test = item.test.bind(item);
+        }
+        if (typeof item.expect === 'function') { // 支持expect传入函数
+            item.expect = item.expect.call(item, mergedArgs);
+        }
         const startTime = new Date().getTime();
-        let result = pickPlugin(item, plugin)(item, args);
-        if (result instanceof Promise) {
+        let result = pickPlugin(item, plugin)(item as ITestPluginConfigItem, mergedArgs);
+        if (result instanceof Promise) { // 兼容 async plugin
             result = await result;
         }
         testedNum ++;
@@ -67,11 +77,12 @@ export {
     ITestPlugin,
     IStartTest,
     IIsValueEqual,
+    IMergedArgs,
 } from './type';
 
 export default {
     startTest,
     isValueEqual,
     defaultPlugin,
-    asyncPlugin
+    asyncPlugin,
 };

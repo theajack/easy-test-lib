@@ -1,9 +1,23 @@
-export interface ITestConfigItem {
+export interface ITestFunction {
+    (this: ITestConfigItem, args: IMergedArgs): any;
+}
+
+type TTestObject = ITestFunction | object | string | number | bigint | boolean | symbol | undefined | null;
+
+interface ITestConfigItemBase {
     name?: string;
-    test(args: any, localArgs: any): any;
-    expect: any;
     args?: any;
     plugin?: TTestPlugin;
+}
+
+export interface ITestConfigItem extends ITestConfigItemBase {
+    test: TTestObject;
+    expect: TTestObject;
+}
+
+export interface ITestPluginConfigItem extends ITestConfigItemBase {
+    test: ITestFunction;
+    expect: any;
 }
 
 export interface IStartOption {
@@ -49,19 +63,23 @@ export interface Json<K = any> {
 export type TExpectObject = Json | any[];
 
 export interface ITestPlugin {
-    (config: ITestConfigItem, argsConfig: any): ITestPluginReturn | Promise<ITestPluginReturn>
+    (config: ITestPluginConfigItem, mergedArgs: IMergedArgs): ITestPluginReturn | Promise<ITestPluginReturn>
 }
 
 export interface IStartTest {
-    ({
-        cases,
-        args,
-        onTestSingle,
-        onTestComplete,
-        plugin,
-    }: IStartOption): void
+    (option: IStartOption): void
 }
 
 export interface IIsValueEqual{
     (v1: any, v2: any): boolean;
+}
+ 
+export interface IMergedArgs {
+    $global: any;
+    $local: any;
+    [prop: string]: any;
+}
+
+export interface IMergeArgs {
+    (global: any, local: any): IMergedArgs;
 }

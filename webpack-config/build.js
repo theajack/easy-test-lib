@@ -44,7 +44,6 @@ module.exports = () => {
                 patterns: [
                     {from: 'src/index.d.ts', to: 'easy-test-lib.min.d.ts'},
                     {from: 'src/type.d.ts'},
-                    {from: 'README.cn.md'},
                     {from: 'README.md'},
                     {from: 'LICENSE'}
                 ]

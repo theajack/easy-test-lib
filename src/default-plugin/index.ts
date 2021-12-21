@@ -4,12 +4,9 @@ import {
 } from '../type';
 import {isValueEqual} from '../util';
 
-const plugin: ITestPlugin = ({
-    test, expect, args
-}, argsConfig) => {
-    const result = test.call({
-        test, expect, args
-    }, argsConfig, args);
+const plugin: ITestPlugin = (item, mergedArgs) => {
+    const {test, expect} = item;
+    const result = test.call(item, mergedArgs);
     return {
         result,
         expect,

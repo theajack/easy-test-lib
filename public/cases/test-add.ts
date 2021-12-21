@@ -5,7 +5,7 @@ function add (x: number, y: number) {
     return x + y;
 }
 
-let config: ITestConfigItem = {
+const config: ITestConfigItem = {
     name: '测试add',
     test () {
         return add(2, 3);

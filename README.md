@@ -15,8 +15,7 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
-
+**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Online Use](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib)  [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 ### 1. Features
 
@@ -105,8 +104,8 @@ startTest({
             args: {// optional
                 // The api of the current test case
             },
-            test (args, localArgs) {
-                // args corresponds to the public api, localArgs corresponds to the current test case api
+            test (mergedArgs) {
+                // mergedArg is a combination of public arg and use case arg, in addition to mergedArg, there are two attributes: $global and $local
                 // this refers to the current test case
                 return add(1, 1);
             },
@@ -223,9 +222,7 @@ easy-test-lib supports custom plugins, which are handed over to the developer to
 
 
 ```js
-const plugin: ITestPlugin = ({
-    name, test, expect, args
-}, argsConfig) => {
+const plugin: ITestPlugin = (item, mergedArgs) => {
     
     // do something ...
 
@@ -260,13 +257,14 @@ console.log(isValueEqual(1, 1));
 
 Default plugin
 
-#### 5.4 defaultPlugin
+#### 5.4 asyncPlugin
 
 Support asynchronous plugins
 
 #### 5.5 ts interface
 
-  1. ITestConfigItem
-  2. ITestPlugin
-  3. IStartTest
-  4. IIsValueEqual
+1. ITestConfigItem
+2. ITestPlugin
+3. IStartTest
+4. IIsValueEqual
+5. IMergedArgs

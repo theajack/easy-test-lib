@@ -4,12 +4,9 @@ import {
 } from '../type';
 import {isValueEqual} from '../util';
 
-const plugin: ITestPlugin = async ({
-    test, expect, args
-}, argsConfig) => {
-    const result = await test.call({
-        test, expect, args
-    }, argsConfig, args);
+const plugin: ITestPlugin = async (item, mergedArgs) => {
+    const {test, expect} = item;
+    const result = await test.call(item, mergedArgs);
     return {
         result,
         expect,
