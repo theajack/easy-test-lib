@@ -15,7 +15,7 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Online Use](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib)  [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
+**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Online Use](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib) | [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 ### 1. Features
 
