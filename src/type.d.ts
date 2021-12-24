@@ -7,7 +7,8 @@ type TTestObject = ITestFunction | object | string | number | bigint | boolean |
 interface ITestConfigItemBase {
     name?: string;
     args?: any;
-    plugin?: TTestPlugin;
+    plugin?: ITestPlugin;
+    disabled?: boolean;
 }
 
 export interface ITestConfigItem extends ITestConfigItemBase {
@@ -23,12 +24,10 @@ export interface ITestPluginConfigItem extends ITestConfigItemBase {
 export interface IStartOption {
     cases: ITestConfigItem[];
     args?: any;
-    plugin?: TTestPlugin;
+    plugin?: ITestPlugin;
     onTestSingle?: IOnTestSingle;
     onTestComplete?: IOnTestComplete;
 }
-
-export type TTestPlugin = ITestPlugin | 'defaultPlugin' | 'asyncPlugin';
 
 export interface IOnTestSingle {
     (args: IOnTestSingleOption): void;

@@ -25,3 +25,8 @@
 3. 支持test直接配置返回数据
 4. 支持expect配置一个函数作为返回值
 5. 增加 IMergedArgs 接口, 主要用于自定义第三方插件时使用
+
+### 1.0.1
+
+1. 删除 asyncPlugin, 合并到defaultPlugin
+2. 增加 diaabled 参数，可以动态控制禁用某些测试用例

@@ -4,10 +4,10 @@ import {startTest} from '../src/index';
 // import {startTest} from '../npm/easy-test-lib.min.js';
 import testAdd from './cases/test-add';
 import testDefault from './cases/test-default';
-import testAsync from './cases/test-async';
 import testDom from './cases/test-dom';
 import testObject from './cases/test-object';
 import testArgs from './cases/test-args';
+import testAsync from './cases/test-async';
 
 // console.log(startTest);
 startTest({
@@ -15,12 +15,12 @@ startTest({
         commonArg: 'commonArg'
     },
     cases: [
-        testDefault,
+        ...testDefault,
         testAdd,
-        testAsync,
         testDom,
         ...testObject,
         ...testArgs,
+        testAsync,
     ],
     onTestComplete (result) {
         console.log(`总耗时（${result.time}）ms； 结果：${result.passed ? '通过' : '失败'}`);

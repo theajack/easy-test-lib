@@ -2,13 +2,11 @@ import {
     IOnTestSingleOption,
     IStartTest,
     ITestPlugin,
-    TTestPlugin,
     ITestConfigItem,
     ITestPluginConfigItem,
 } from './type';
 
 import defaultTestPlugin from './default-plugin';
-import asyncTestPlugin from './async-plugin';
 import {countTime, isValueEqual, mergeArgs} from './util';
 import createTestProcess from './test-process';
 
@@ -23,6 +21,7 @@ export const startTest:IStartTest = ({
     const length = cases.length;
     let testedNum = 0;
     cases.forEach(async (item, index) => {
+        if (item.disabled) return;
         const mergedArgs = mergeArgs(args, item.args);
         if (typeof item.test !== 'function') {
             item.test = () => item.test; // 支持test传入非函数
@@ -48,21 +47,14 @@ export const startTest:IStartTest = ({
     });
 };
 
-function pickPlugin (item: ITestConfigItem, plugin?: TTestPlugin): ITestPlugin {
+function pickPlugin (item: ITestConfigItem, plugin?: ITestPlugin): ITestPlugin {
     if (item.plugin) {
-        if (typeof item.plugin === 'string') {
-            return checkPluginByString(item.plugin);
-        }
-        return item.plugin as ITestPlugin;
+        return item.plugin;
     }
-    if (typeof plugin === 'string') {
-        return checkPluginByString(plugin);
+    if (plugin) {
+        return plugin;
     }
     return defaultTestPlugin;
-}
-
-function checkPluginByString (plugin: 'asyncPlugin' | 'defaultPlugin'): ITestPlugin {
-    return plugin === 'asyncPlugin' ? asyncTestPlugin : defaultTestPlugin;
 }
 
 export {
@@ -70,7 +62,6 @@ export {
 } from './util';
 
 export const defaultPlugin = defaultTestPlugin;
-export const asyncPlugin = asyncTestPlugin;
 
 export {
     ITestConfigItem,
@@ -84,5 +75,4 @@ export default {
     startTest,
     isValueEqual,
     defaultPlugin,
-    asyncPlugin,
 };

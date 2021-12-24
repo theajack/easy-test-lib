@@ -11,7 +11,7 @@ async function timeout (time: number) {
 }
 
 const asyncCase: ITestConfigItem = {
-    plugin: 'asyncPlugin',
+    // plugin: 'asyncPlugin',
     name: '测试async',
     async test () {
         await timeout(1000);

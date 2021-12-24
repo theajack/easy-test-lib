@@ -102,6 +102,7 @@ startTest({
     cases: [ // 测试用例配置，建议拆分文件
         {
             name: '测试add函数', // 可选
+            disabled: false, // 可选 是否禁用当前用例
             args: { // 可选
                 // 当前测试用例的api
             },
@@ -150,24 +151,9 @@ startTest({
 
 #### 4.1 内置插件
 
-easy-test-lib 内置了 默认插件（defaultPlugin）和 异步插件（asyncPlugin）
+easy-test-lib 内置了 默认插件（defaultPlugin） 1.0.1 及之后的版本 将异步插件功能合并进了默认插件里
 
-默认使用默认插件，如需使用异步插件可以直接使用字符串引入
-
-```js
-plugin: 'asyncPlugin'
-```
-
-或从 easy-test-lib 中引入
-
-```js
-const {asyncPlugin} = require('easy-test-lib');
-
-...
-plugin: asyncPlugin
-```
-
-以下是一个使用异步插件的测试用例
+以下是一个使用异步的测试用例
 
 ```js
 function timeout (time) {
@@ -180,9 +166,8 @@ function timeout (time) {
 
 const asyncCase = {
     args: {aa: 22},
-    plugin: 'asyncPlugin',
     name: '测试async',
-    async test (args: any) {
+    async test (args: any) { // 或者返回一个 Promise 对象
         await timeout(2000);
         console.log(args, this.args);
         return [
@@ -221,7 +206,6 @@ startTest({
 
 easy-test-lib 支持自定义插件，交给开发者定制测试计算过程，一个简单的自定义插件模板如下
 
-
 ```js
 const plugin: ITestPlugin = (item, mergedArgs) => {
     
@@ -258,11 +242,8 @@ console.log(isValueEqual(1, 1));
 
 默认的插件
 
-#### 5.4 asyncPlugin
 
-支持异步的插件
-
-#### 5.5 ts 接口
+#### 5.4 ts 接口
 
  1. ITestConfigItem
  2. ITestPlugin

@@ -4,9 +4,12 @@ import {
 } from '../type';
 import {isValueEqual} from '../util';
 
-const plugin: ITestPlugin = (item, mergedArgs) => {
+const plugin: ITestPlugin = async (item, mergedArgs) => {
     const {test, expect} = item;
-    const result = test.call(item, mergedArgs);
+    let result = test.call(item, mergedArgs);
+    if (result instanceof Promise) {
+        result = await result;
+    }
     return {
         result,
         expect,

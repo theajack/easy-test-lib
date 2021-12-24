@@ -15,7 +15,7 @@
     <a href="https://www.github.com/theajack/easy-test-lib"><img src="https://img.shields.io/librariesio/dependent-repos/npm/easy-test-lib.svg" alt="Dependent"></a>
 </p>
 
-**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Online Use](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib)  [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
+**[中文](https://github.com/theajack/easy-test-lib/blob/master/README.cn.md) | [Online Use](https://theajack.gitee.io/jsbox?github=theajack.easy-test-lib) | [Feedback](https://github.com/theajack/easy-test-lib/issues/new) | [Gitee](https://gitee.com/theajack/easy-test-lib)**
 
 ### 1. Features
 
@@ -101,6 +101,7 @@ startTest({
     cases: [// Test case configuration, it is recommended to split files
         {
             name:'Test add function', // optional
+            disabled: false, // optional Whether to disable the current use case
             args: {// optional
                 // The api of the current test case
             },
@@ -149,24 +150,9 @@ startTest({
 
 #### 4.1 Built-in plugins
 
-easy-test-lib has built-in default plugin (defaultPlugin) and asynchronous plugin (asyncPlugin)
+easy-test-lib has a built-in default plugin (defaultPlugin) 1.0.1 and later versions. The asynchronous plugin function is merged into the default plugin
 
-The default plugin is used by default. If you need to use asynchronous plugins, you can directly use the string to import
-
-```js
-plugin:'asyncPlugin'
-```
-
-Or import from easy-test-lib
-
-```js
-const {asyncPlugin} = require('easy-test-lib');
-
-...
-plugin: asyncPlugin
-```
-
-The following is a test case using asynchronous plugins
+The following is a test case using asynchronous
 
 ```js
 function timeout (time) {
@@ -179,9 +165,8 @@ function timeout (time) {
 
 const asyncCase = {
     args: {aa: 22},
-    plugin:'asyncPlugin',
     name:'Test async',
-    async test (args: any) {
+    async test (args: any) { // Or return a Promise object
         await timeout(2000);
         console.log(args, this.args);
         return [
@@ -220,7 +205,6 @@ startTest({
 
 easy-test-lib supports custom plugins, which are handed over to the developer to customize the test calculation process. A simple custom plugin template is as follows
 
-
 ```js
 const plugin: ITestPlugin = (item, mergedArgs) => {
     
@@ -257,11 +241,7 @@ console.log(isValueEqual(1, 1));
 
 Default plugin
 
-#### 5.4 asyncPlugin
-
-Support asynchronous plugins
-
-#### 5.5 ts interface
+#### 5.4 ts interface
 
 1. ITestConfigItem
 2. ITestPlugin

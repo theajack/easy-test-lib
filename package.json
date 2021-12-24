@@ -1,6 +1,6 @@
 {
     "name": "easy-test-lib",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A simple and easy-to-use testing lib",
     "scripts": {
         "dev": "webpack-dev-server --open --config webpack-config/dev.js",
