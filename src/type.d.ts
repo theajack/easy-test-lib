@@ -41,6 +41,7 @@ export interface ITestPluginReturn {
     passed: boolean;
     result: any;
     expect?: any;
+    disabled?: boolean;
 }
 
 export interface IOnTestSingleOption extends ITestPluginReturn {

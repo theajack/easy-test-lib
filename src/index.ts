@@ -4,6 +4,7 @@ import {
     ITestPlugin,
     ITestConfigItem,
     ITestPluginConfigItem,
+    ITestPluginReturn,
 } from './type';
 
 import defaultTestPlugin from './default-plugin';
@@ -20,30 +21,54 @@ export const startTest:IStartTest = ({
     const onTestProcess = createTestProcess(onTestSingle, onTestComplete);
     const length = cases.length;
     let testedNum = 0;
-    cases.forEach(async (item, index) => {
-        if (item.disabled) return;
-        const mergedArgs = mergeArgs(args, item.args);
-        if (typeof item.test !== 'function') {
-            item.test = () => item.test; // 支持test传入非函数
-        } else {
-            item.test = item.test.bind(item);
-        }
-        if (typeof item.expect === 'function') { // 支持expect传入函数
-            item.expect = item.expect.call(item, mergedArgs);
-        }
-        const startTime = new Date().getTime();
-        let result = pickPlugin(item, plugin)(item as ITestPluginConfigItem, mergedArgs);
-        if (result instanceof Promise) { // 兼容 async plugin
-            result = await result;
-        }
+
+    const trigTestProcess = ({
+        index, time, result, name = ''
+    }: {
+        index: number, time: number, result: ITestPluginReturn, name?: string,
+    }) => {
         testedNum ++;
         const singleOption: IOnTestSingleOption = {
             ...result,
             index,
-            time: countTime(startTime),
+            time,
         };
-        if (item.name) {singleOption.name = item.name;}
+        if (name) singleOption.name = name;
         onTestProcess(singleOption, testedNum === length);
+    };
+
+    cases.forEach(async (item, index) => {
+        let time: number, result: ITestPluginReturn | Promise<ITestPluginReturn>;
+        if (item.disabled) {
+            time = 0;
+            result = {
+                passed: true,
+                disabled: true,
+                result: '',
+            };
+        } else {
+            const startTime = Date.now();
+            const mergedArgs = mergeArgs(args, item.args);
+            if (typeof item.test !== 'function') {
+                item.test = () => item.test; // 支持test传入非函数
+            } else {
+                item.test = item.test.bind(item);
+            }
+            if (typeof item.expect === 'function') { // 支持expect传入函数
+                item.expect = item.expect.call(item, mergedArgs);
+            }
+            result = pickPlugin(item, plugin)(item as ITestPluginConfigItem, mergedArgs);
+            if (result instanceof Promise) { // 兼容 async plugin
+                result = await result;
+            }
+            time = countTime(startTime);
+        }
+        trigTestProcess({
+            name: item.name,
+            index,
+            time,
+            result,
+        });
     });
 };
 

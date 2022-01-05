@@ -1,6 +1,6 @@
 {
     "name": "easy-test-lib",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A simple and easy-to-use testing lib",
     "main": "easy-test-lib.min.js",
     "bin": {

@@ -29,4 +29,9 @@
 ### 1.0.1
 
 1. 删除 asyncPlugin, 合并到defaultPlugin
-2. 增加 diaabled 参数，可以动态控制禁用某些测试用例
+2. 增加 disabled 参数，可以动态控制禁用某些测试用例
+
+### 1.0.2
+
+1. 修复测试用例耗时不准的bug
+2. 修复disabled参数导致测试无法complete的bug

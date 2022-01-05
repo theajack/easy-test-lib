@@ -72,7 +72,7 @@ function objectEqualBaseSingle (resultItem: any, expectItem: any) {
 }
 
 export function countTime (startTime: number): number {
-    return new Date().getTime() - startTime;
+    return Date.now() - startTime;
 }
 
 export function mergeArgs (global: any, local: any) {
