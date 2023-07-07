@@ -14,4 +14,6 @@ export const asyncPlugin: ITestPlugin;
 
 export const startTest: IStartTest;
 
+export function assert(v1: any, v2: any): void;
+
 export const isValueEqual: IIsValueEqual;
