@@ -1,3 +1,8 @@
+/*
+ * @Author: chenzhongsheng
+ * @Date: 2022-06-02 07:29:17
+ * @Description: Coding something
+ */
 import {ITestConfigItem} from '../../src';
 
 const defaultCase: ITestConfigItem[] = [{
@@ -14,13 +19,9 @@ const defaultCase: ITestConfigItem[] = [{
     name: '测试disable 跳过',
     disabled: true,
     test () {
-        return [
-            11
-        ];
+        return 222;
     },
-    expect: [
-        11
-    ]
+    expect: 111
 }, {
     name: '测试Symbol',
     args: {caseArg: {a: 1}},

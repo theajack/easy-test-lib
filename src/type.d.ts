@@ -1,3 +1,8 @@
+/*
+ * @Author: chenzhongsheng
+ * @Date: 2022-06-02 07:29:17
+ * @Description: Coding something
+ */
 export interface ITestFunction {
     (this: ITestConfigItem, args: IMergedArgs): any;
 }
@@ -77,6 +82,7 @@ export interface IIsValueEqual{
 export interface IMergedArgs {
     $global: any;
     $local: any;
+    assert(v1: any, v2: any): any;
     [prop: string]: any;
 }
 

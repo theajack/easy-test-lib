@@ -1,3 +1,8 @@
+/*
+ * @Author: chenzhongsheng
+ * @Date: 2022-06-02 07:29:17
+ * @Description: Coding something
+ */
 import {Json, TExpectObject, IIsValueEqual, IMergedArgs} from './type';
 
 export const isValueEqual: IIsValueEqual = (v1, v2) => {
@@ -75,10 +80,18 @@ export function countTime (startTime: number): number {
     return Date.now() - startTime;
 }
 
+export function assert (value: any, result: any) {
+    if (!isValueEqual(value, result)) {
+        console.error('Expect false', value, result);
+        throw new Error('Expect false');
+    }
+}
+
 export function mergeArgs (global: any, local: any) {
     const args: IMergedArgs = {
         $global: global,
-        $local: local
+        $local: local,
+        assert,
     };
     if (typeof global === 'object' && global !== null) {
         Object.assign(args, global);

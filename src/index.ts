@@ -8,8 +8,10 @@ import {
 } from './type';
 
 import defaultTestPlugin from './default-plugin';
-import {countTime, isValueEqual, mergeArgs} from './util';
+import {countTime, isValueEqual, mergeArgs, assert} from './util';
 import createTestProcess from './test-process';
+
+export {assert} from './util';
 
 export const startTest:IStartTest = ({
     cases,
@@ -57,9 +59,16 @@ export const startTest:IStartTest = ({
             if (typeof item.expect === 'function') { // 支持expect传入函数
                 item.expect = item.expect.call(item, mergedArgs);
             }
-            result = pickPlugin(item, plugin)(item as ITestPluginConfigItem, mergedArgs);
-            if (result instanceof Promise) { // 兼容 async plugin
-                result = await result;
+            // 选择插件 执行test
+            try {
+                result = pickPlugin(item, plugin)(item as ITestPluginConfigItem, mergedArgs);
+                if (result instanceof Promise) { // 兼容 async plugin
+                    result = await result;
+                }
+            } catch (e) {
+                console.error(e);
+                // @ts-ignore
+                result = null;
             }
             time = countTime(startTime);
         }
@@ -67,6 +76,7 @@ export const startTest:IStartTest = ({
             name: item.name,
             index,
             time,
+            // @ts-ignore
             result,
         });
     });
@@ -98,6 +108,7 @@ export {
 
 export default {
     startTest,
+    assert,
     isValueEqual,
     defaultPlugin,
 };
